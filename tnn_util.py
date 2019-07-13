@@ -17,7 +17,7 @@ def one_hot(Y, index):
     
     return Y_onehot
 
-def tensor_initialize(n_x, Dmax, l, parameters):
+def tensor_initialize(parameters):
     """
     Initialize the tensor network.
     
@@ -32,6 +32,7 @@ def tensor_initialize(n_x, Dmax, l, parameters):
     tensors -- MPS, list of pytorch tensors
     """
     torch.manual_seed(1)
+    m, n, Dmax, l, index = parameters['m'], parameters['n'], parameters['Dmax'], parameters['l'], parameters['index']
     bond_dims = [Dmax for i in range(n - 1)] + [1]
     tensors = []
     for i in range(n):
