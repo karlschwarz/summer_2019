@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+import matplotlib.pyplot as plt
 
 def one_hot(Y, index):
     """
@@ -42,7 +43,13 @@ def tensor_initialize(n_x, Dmax, l, parameters):
     
     return parameters
 
-
-
+def img_show(dataset, n_row, n_column):
+    
+    fig = plt.figure()
+    for index in range(1, 1+n_row*n_column):
+        plt.subplot(n_row, n_column, index)
+        plt.axis('off')
+        plt.imshow(dataset[index][0].squeeze(), cmap='gray_r')
+        
 
 
