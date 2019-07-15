@@ -32,14 +32,16 @@ def tensor_initialize(parameters):
     tensors -- MPS, list of pytorch tensors
     """
     torch.manual_seed(1)
-    m, n, Dmax, l, index = parameters['m'], parameters['n'], parameters['Dmax'], parameters['l'], parameters['index']
+    n, Dmax, l, index = parameters['n'], parameters['Dmax'], parameters['l'], parameters['index']
     bond_dims = [Dmax for i in range(n - 1)] + [1]
     tensors = []
     for i in range(n):
         if i != l:
-            tensors.append(torch.randn(bond_dims[i-1], 2, bond_dims[i]))
+            tensor = torch.randn(bond_dims[i-1], 2, bond_dims[i])
+            tensors.append(tensor/tensor.norm())
         else:
-            tensors.append(torch.randn(bond_dims[i-1], 2, index, bond_dims[i]))
+            tensor = torch.randn(bond_dims[i-1], 2, index, bond_dims[i])
+            tensors.append(tensor/tensor.norm())
     parameters['tensors'] = tensors
     
     return parameters
@@ -52,5 +54,6 @@ def img_show(dataset, n_row, n_column):
         plt.axis('off')
         plt.imshow(dataset[index][0].squeeze(), cmap='gray_r')
         
-
+#def initialize_parameters(n, m, Dmax, l, index):
+#    parameters = {
 
